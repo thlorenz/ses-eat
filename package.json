@@ -10,7 +10,6 @@
     ]
   },
   "scripts": {
-    "preinstall": "sh ./preinstall.sh",
     "postinstall": "npm dedupe",
     "start": "nodemon -e js,css,hbs,json ./node_modules/.bin/appup --config ./appup-dev-config.js --api 4000 --pages 3000 ./client/init",
     "test-pages": "tap app/pages/test",
@@ -27,7 +26,8 @@
   "homepage": "https://github.com/thlorenz/ses-eat",
   "optionalDependencies": {},
   "dependencies": {
-    "hbsfy": "~0.1.5"
+    "hbsfy": "~0.1.5",
+    "ses-core": "git://github.com/thlorenz/ses-core"
   },
   "devDependencies": {
     "nodemon": "~0.7.8",
