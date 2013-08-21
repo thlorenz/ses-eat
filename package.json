@@ -27,7 +27,9 @@
   "optionalDependencies": {},
   "dependencies": {
     "hbsfy": "~0.1.5",
-    "ses-core": "git://github.com/thlorenz/ses-core"
+    "ses-core": "git://github.com/thlorenz/ses-core",
+    "underscore": "~1.5.1",
+    "backbone": "~1.0.0"
   },
   "devDependencies": {
     "nodemon": "~0.7.8",
