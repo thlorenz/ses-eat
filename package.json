@@ -13,11 +13,10 @@
     "postinstall": "npm dedupe",
     "start": "nodemon -e js,css,hbs,json ./node_modules/.bin/appup --config ./appup-dev-config.js --api 4000 --pages 3000 ./client/init",
     "test-pages": "tap app/pages/test",
-    "test-pages-integration": "tap app/pages/test-integration",
-    "test-api-integration": "tap app/api/test-integration",
+    "test-api": "tap app/api/test",
     "test-client": "zuul client/test/views/ --config ./zuul-test-config.js",
     "start-test": "zuul client/test/views/ --server 3002 --config ./zuul-test-config.js",
-    "test": "npm run test-client && npm run test-pages && npm run test-pages-integration && npm run test-api-integration"
+    "test": "npm run test-client && npm run test-pages && npm run test-api"
   },
   "repository": {
     "type": "git",

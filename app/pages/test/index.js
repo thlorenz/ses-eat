@@ -2,26 +2,30 @@
 
 var test = require('tap').test;
 var pages = require('../');
-var dirs = require('../../../config/directories');
+var express = require('express');
+var http = require('http');
+var through = require('through');
 
-// note: not testing core endpoints here since they are tested in core itself
-
-test('registers static css middleware when initialized', function (t) {
-  var used;
-  var app = {
-    use: function (route, static_) {
-      used = { route: route, static: static_ };
-    }
-  };
-  var express = {
-    static: function (dir) {
-      return dir;
-    }
-  };
+test('properly sets up express app when initialized', function (t) {
+  var app = express();
 
   pages.init(app, express);
+  var server = app.listen(3111);
 
-  t.equal(used.route, '/ses-eat-css', 'registers css route');
-  t.equal(used.static, dirs.css, 'for static css folder');
-  t.end();
+  t.on('end', server.close.bind(server));
+
+  server.once('listening', function () {
+    http
+      .request({ port: 3111, path: '/ses-eat-css/index.css' })
+      .once('response', function (res) {
+        t.equal(res.statusCode, 200, '200 response');
+        t.ok(res.headers['content-length'] > 0, 'with content');
+        t.similar(res.headers['content-type'], /^text\/css/, 'text/css');
+
+        // drain response to properly end it
+        res.pipe(through());
+        t.end();
+      })
+      .end();
+  });
 });
